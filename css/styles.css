@@ -1,0 +1,168 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  width: 100%;
+  color: white;
+  background-color: purple;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 20px;
+}
+
+main {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+}
+
+.brand {
+  border-radius: 10px;
+  display: flex;
+  flex: 10%;
+  flex-shrink: 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: yellowgreen;
+  margin: 10px;
+  padding: 10px;
+  max-width: 150px;
+}
+
+.brand h3 {
+  font-size: 1rem;
+  margin-bottom: 8px;
+}
+
+.brand button {
+  width: 100%;
+  height: 30px;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  border: 0;
+  border-radius: 5px;
+  margin: 4px;
+  padding: 2px;
+  background-color: white;
+}
+
+.brand button:hover {
+  background-color: pink;
+}
+
+@media screen and (max-width: 1024px) {
+  .brand {
+    background: none;
+    position: absolute;
+    top: 0px;
+    left: 15px;
+    padding: 0;
+    margin: 0;
+  }
+
+  .brand h3 {
+    display: none;
+  }
+
+  .brand button {
+    width: 60px;
+    height: 28px;
+    font-size: 0.8rem;
+    font-weight: bold;
+  }
+}
+
+.menu {
+  display: flex;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  margin: 10px;
+}
+
+.menu article {
+  display: flex;
+  flex: 50%;
+  flex-shrink: 0;
+  align-items: center;
+  border-radius: 20px;
+  box-shadow: 5px 5px 10px gray;
+}
+
+.menu article:hover {
+  background-color: pink;
+}
+
+.cart_container {
+  width: 300px;
+  border-radius: 20px;
+  background-color: rgb(252, 205, 213);
+  position: sticky;
+  position: -webkit-sticky;
+  top: 10px;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  margin: 10px;
+  padding: 10px;
+}
+
+.cart_section {
+  width: 100%;
+  height: 60px;
+  border-bottom: 2px solid white;
+}
+
+.cart_section.total_price {
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cart h3 {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.total_price div {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.order_button_container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.order_button_container button {
+  width: 70px;
+  height: 28px;
+  margin: 2px;
+  border: 0;
+  border-radius: 12px;
+  background-color: rgb(187, 156, 212);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
