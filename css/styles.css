@@ -109,6 +109,7 @@ main {
 
 .menu article:hover {
   background-color: pink;
+  cursor: pointer;
 }
 
 .cart_container {
