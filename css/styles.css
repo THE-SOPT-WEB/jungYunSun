@@ -66,6 +66,7 @@ main {
 
 .brand button:hover {
   background-color: pink;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 1024px) {
@@ -165,4 +166,5 @@ main {
   color: white;
   font-size: 0.8rem;
   font-weight: bold;
+  cursor: pointer;
 }
