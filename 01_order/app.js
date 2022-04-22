@@ -9,7 +9,7 @@ function handleBurgerDeleteClick(e) {
   burgerInCart.remove();
 }
 
-function addBurgerToCart(clickedBurger) {
+function addNewBurgerToCart(clickedBurger) {
   const burgerInCart = document.createElement("div");
   const burgerName = document.createElement("div");
   const burgerCount = document.createElement("input");
@@ -40,14 +40,29 @@ function addBurgerToCart(clickedBurger) {
   burgerInCart.appendChild(burgerDelete);
   cart.appendChild(burgerInCart);
 
-  burgersInCart.push(burgerName.innerText);
+  burgersInCart.push({name: burgerName.innerText, count: 1, countInput: burgerCount});
 
+}
+
+function addExistingBurgerToCart(clickedBurger) {
+  const clickedBurgerName = clickedBurger.querySelector("h2").innerText;
+  const index = burgersInCart.findIndex(burgerInCart => burgerInCart.name === clickedBurgerName);
+  const countInput = burgersInCart[index].countInput;
+  burgersInCart[index].count++;
+  countInput.value = burgersInCart[index].count;
 }
 
 function handleBurgerClick(e) {
   const clickedBurger = e.currentTarget;
-  
-  addBurgerToCart(clickedBurger);
+  const clickedBurgerName = clickedBurger.querySelector("h2").innerText;
+  const index = burgersInCart.findIndex(burgerInCart => burgerInCart.name === clickedBurgerName);
+  if(index === -1){
+    addNewBurgerToCart(clickedBurger);
+  }
+  else {
+    addExistingBurgerToCart(clickedBurger);
+  }
+
 }
 
 burgers.forEach(burger => {
