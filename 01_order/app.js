@@ -8,6 +8,17 @@ const modal = document.querySelector(".modal");
 const modalBody = document.querySelector("p.modal__body");  
 const yesButton = document.querySelector(".modal__yes-button");
 const noButton = document.querySelector(".modal__no-button");
+const CART_KEY = 'cart';
+
+
+function saveCart() {
+  localStorage.setItem(CART_KEY, JSON.stringify(burgersInCart));
+}
+
+function loadCart() {
+  const loadedCart = localStorage.getItem(CART_KEY);
+  burgersInCart = JSON.parse(loadedCart);
+}
 
 function subtractBurgerPrice(burger) {
   const burgerPrice = burger.price * burger.count;
@@ -23,6 +34,7 @@ function handleBurgerDeleteClick(e) {
   subtractBurgerPrice(burgersInCart[burgerName]);
   delete burgersInCart[burgerName];
   burgerInCart.remove();
+  saveCart();
 }
 
 function addNewBurgerToCart(burger) {
@@ -59,7 +71,6 @@ function addNewBurgerToCart(burger) {
   };
 
   burgerCount.addEventListener("change", (e) => {
-    console.log(typeof e.target.value);
     let newCount = Number(e.target.value);
 
     if (newCount < 1) {
@@ -67,6 +78,8 @@ function addNewBurgerToCart(burger) {
     } else {
       burgersInCart[burger.name].count = newCount;
     }
+
+    saveCart();
   });
 
 }
@@ -108,6 +121,7 @@ function handleBurgerClick(e) {
   }
 
   addBurgerPrice(burger);
+  saveCart();
 }
 
 burgers.forEach(burger => {
@@ -122,6 +136,7 @@ cancelButton.addEventListener('click', () => {
   burgersInCart = {};
   totalPrice.innerText = "0원";
 
+  saveCart();
 });
 
 function showModal(modalContent) {
@@ -136,3 +151,56 @@ noButton.addEventListener('click', () => {
 orderButton.addEventListener('click', () => {
   showModal('정말 주문하시겠어요?');
 })
+
+window.addEventListener('load', () => {
+  let oldTotalPrice = 0;
+
+  loadCart();
+  for(const localBurgerName in burgersInCart) {
+    const burgerInCart = document.createElement("div");
+    const burgerName = document.createElement("div");
+    const burgerCount = document.createElement("input");
+    const burgerPrice = document.createElement("div");
+    const burgerDelete = document.createElement("button");
+  
+    burgerInCart.classList.add("burger_in_cart");
+    burgerName.classList.add("burger_name");
+    burgerCount.classList.add("burger_count");
+    burgerCount.type = "number"
+    burgerPrice.classList.add("burger_price");
+    burgerDelete.classList.add("burger_delete");
+  
+    burgerName.innerText = localBurgerName;
+    burgerCount.value = burgersInCart[localBurgerName].count;
+    burgerPrice.innerText = burgersInCart[localBurgerName].priceString;
+    burgerDelete.innerText = "X"
+  
+    burgerDelete.addEventListener('click', handleBurgerDeleteClick);
+  
+    burgerInCart.appendChild(burgerName);
+    burgerInCart.appendChild(burgerCount);
+    burgerInCart.appendChild(burgerPrice);
+    burgerInCart.appendChild(burgerDelete);
+    cart.appendChild(burgerInCart);
+
+    burgerCount.addEventListener("change", (e) => {
+      let newCount = Number(e.target.value);
+  
+      if (newCount < 1) {
+        handleBurgerDeleteClick(e);
+      } else {
+        burgersInCart[localBurgerName].count = newCount;
+      }
+  
+      saveCart();
+    }
+    );
+    let newTotalPrice = oldTotalPrice + burgersInCart[localBurgerName].price * burgersInCart[localBurgerName].count
+    oldTotalPrice = newTotalPrice;
+  }
+  totalPrice.innerText = oldTotalPrice + "원";
+})
+
+// burgersInCart 안에 있는거 그리기
+// 누적금액 그리기
+// input 작살난거 돌려놓기
