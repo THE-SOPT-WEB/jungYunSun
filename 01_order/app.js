@@ -1,7 +1,12 @@
 const burgers = document.querySelectorAll('article');
+const burgersInCart = [];
 
 function handleBurgerDeleteClick(e) {
   const burgerInCart = e.target.parentElement;
+  const burgerName = burgerInCart .querySelector(".burger_name").innerText;
+  const index = burgersInCart.indexOf(burgerName);
+  burgersInCart.splice(index, 1);
+  console.log(burgersInCart);
   burgerInCart.remove();
 }
 
@@ -36,10 +41,13 @@ function addBurgerToCart(clickedBurger) {
   burgerInCart.appendChild(burgerDelete);
   cart.appendChild(burgerInCart);
 
+  burgersInCart.push(burgerName.innerText);
+
 }
 
 function handleBurgerClick(e) {
   const clickedBurger = e.currentTarget;
+  
   addBurgerToCart(clickedBurger);
 }
 
