@@ -1,15 +1,26 @@
 const burgers = document.querySelectorAll('article');
-const burgersInCart = [];
+const burgersInCart = {};
+let totalPrice = document.querySelector('.total_price > div');
+const cart = document.querySelector(".cart_section");
+const cancelButton = document.querySelector(".order_button_container > button:last-child");
+
+function subtractBurgerPrice(burger) {
+  const burgerPrice = burger.price * burger.count;
+  let oldTotalPrice = totalPrice.innerText.replace(/[^0-9]/g, "");
+  oldTotalPrice = Number(oldTotalPrice);
+  const newTotalPrice = oldTotalPrice - burgerPrice;
+  totalPrice.innerText = newTotalPrice + "원";
+}
 
 function handleBurgerDeleteClick(e) {
   const burgerInCart = e.target.parentElement;
-  const burgerName = burgerInCart .querySelector(".burger_name").innerText;
-  const index = burgersInCart.indexOf(burgerName);
-  burgersInCart.splice(index, 1);
+  const burgerName = burgerInCart.querySelector(".burger_name").innerText;
+  subtractBurgerPrice(burgersInCart[burgerName]);
+  delete burgersInCart[burgerName];
   burgerInCart.remove();
 }
 
-function addNewBurgerToCart(clickedBurger) {
+function addNewBurgerToCart(burger) {
   const burgerInCart = document.createElement("div");
   const burgerName = document.createElement("div");
   const burgerCount = document.createElement("input");
@@ -23,13 +34,9 @@ function addNewBurgerToCart(clickedBurger) {
   burgerPrice.classList.add("burger_price");
   burgerDelete.classList.add("burger_delete");
 
-  const cart = document.querySelector(".cart_section");
-  const totalPrice = document.querySelector('.total_price > div');
-  
-
-  burgerName.innerText = clickedBurger.querySelector("h2").innerText;
+  burgerName.innerText = burger.name;
   burgerCount.value = 1;
-  burgerPrice.innerText = clickedBurger.querySelector("h3").innerText;
+  burgerPrice.innerText = burger.priceString;
   burgerDelete.innerText = "X"
 
   burgerDelete.addEventListener('click', handleBurgerDeleteClick);
@@ -40,31 +47,65 @@ function addNewBurgerToCart(clickedBurger) {
   burgerInCart.appendChild(burgerDelete);
   cart.appendChild(burgerInCart);
 
-  burgersInCart.push({name: burgerName.innerText, count: 1, countInput: burgerCount});
+  burgersInCart[burger.name] = {
+    ...burger,
+    count: 1,
+    countInput: burgerCount
+  };
+
+  burgerCount.addEventListener("change", (e) => {
+    console.log(typeof e.target.value);
+    let newCount = Number(e.target.value);
+
+    if (newCount < 1) {
+      handleBurgerDeleteClick(e);
+    } else {
+      burgersInCart[burger.name].count = newCount;
+    }
+  });
 
 }
 
-function addExistingBurgerToCart(clickedBurger) {
-  const clickedBurgerName = clickedBurger.querySelector("h2").innerText;
-  const index = burgersInCart.findIndex(burgerInCart => burgerInCart.name === clickedBurgerName);
-  const countInput = burgersInCart[index].countInput;
-  burgersInCart[index].count++;
-  countInput.value = burgersInCart[index].count;
+function addExistingBurgerToCart(burger) {
+  burgersInCart[burger.name].count++;
+  burgersInCart[burger.name].countInput.value = burgersInCart[burger.name].count;
+}
+
+function addBurgerPrice(burger) {
+  const burgerPrice = burger.price;
+  let oldTotalPrice = totalPrice.innerText.replace(/[^0-9]/g, "");
+  oldTotalPrice = Number(oldTotalPrice);
+  const newTotalPrice = oldTotalPrice + burgerPrice;
+  totalPrice.innerText = newTotalPrice + "원";
 }
 
 function handleBurgerClick(e) {
   const clickedBurger = e.currentTarget;
   const clickedBurgerName = clickedBurger.querySelector("h2").innerText;
-  const index = burgersInCart.findIndex(burgerInCart => burgerInCart.name === clickedBurgerName);
-  if(index === -1){
-    addNewBurgerToCart(clickedBurger);
-  }
-  else {
-    addExistingBurgerToCart(clickedBurger);
+  
+  // 장바구니 금액 "X,XXX원" 형식 표시용
+  let clickedBurgerPriceString = clickedBurger.querySelector("h3").innerText;
+  
+  // 금액 Number 형식으로 변환
+  let clickedBurgerPrice = clickedBurgerPriceString.replace(/[^0-9]/g, "");
+  clickedBurgerPrice = Number(clickedBurgerPrice);
+
+  let burger = {
+    name: clickedBurgerName,
+    price: clickedBurgerPrice,
+    priceString: clickedBurgerPriceString
+  };
+
+  if (burgersInCart[clickedBurgerName]) {
+    addExistingBurgerToCart(burger);
+  } else {
+    addNewBurgerToCart(burger);
   }
 
+  addBurgerPrice(burger);
 }
 
 burgers.forEach(burger => {
   burger.addEventListener('click', handleBurgerClick);
 });
+

@@ -170,7 +170,7 @@
     cursor: pointer;
   }
 
-  .burger_in_cart {
+  .cart_container .burger_in_cart {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -178,19 +178,19 @@
     margin: 5px;
   }
 
-  .burger_name {
+  .cart_container .burger_name {
     width: 110px;
   }
 
-  .burger_count {
+  .cart_container .burger_count {
     width: 40px;
   }
 
-  .burger_price {
+  .cart_container .burger_price {
     width: 60px;
   }
 
-  .burger_delete {
+  .cart_container .burger_delete {
     width: 21px;
     height: 21px;
     color: white;
