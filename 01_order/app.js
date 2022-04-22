@@ -2,7 +2,12 @@ const burgers = document.querySelectorAll('article');
 let burgersInCart = {};
 let totalPrice = document.querySelector('.total_price > div');
 const cart = document.querySelector(".cart_section");
+const orderButton = document.querySelector(".order_button_container > button:first-child");
 const cancelButton = document.querySelector(".order_button_container > button:last-child");
+const modal = document.querySelector(".modal");
+const modalBody = document.querySelector("p.modal__body");  
+const yesButton = document.querySelector(".modal__yes-button");
+const noButton = document.querySelector(".modal__no-button");
 
 function subtractBurgerPrice(burger) {
   const burgerPrice = burger.price * burger.count;
@@ -109,11 +114,25 @@ burgers.forEach(burger => {
   burger.addEventListener('click', handleBurgerClick);
 });
 
-cancelButton.addEventListener('click', (e) => {
+cancelButton.addEventListener('click', () => {
   const allBurgers = document.querySelectorAll(".burger_in_cart");
   allBurgers.forEach(burger => {
     burger.remove();
   });
   burgersInCart = {};
   totalPrice.innerText = "0원";
+
 });
+
+function showModal(modalContent) {
+  modalBody.innerText = modalContent;
+  modal.classList.remove("hide");
+}
+
+noButton.addEventListener('click', () => {
+  modal.classList.add("hide");
+})
+
+orderButton.addEventListener('click', () => {
+  showModal('정말 주문하시겠어요?');
+})
