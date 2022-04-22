@@ -6,7 +6,6 @@ function handleBurgerDeleteClick(e) {
   const burgerName = burgerInCart .querySelector(".burger_name").innerText;
   const index = burgersInCart.indexOf(burgerName);
   burgersInCart.splice(index, 1);
-  console.log(burgersInCart);
   burgerInCart.remove();
 }
 
