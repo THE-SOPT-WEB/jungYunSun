@@ -1,5 +1,5 @@
 const burgers = document.querySelectorAll('article');
-const burgersInCart = {};
+let burgersInCart = {};
 let totalPrice = document.querySelector('.total_price > div');
 const cart = document.querySelector(".cart_section");
 const cancelButton = document.querySelector(".order_button_container > button:last-child");
@@ -109,3 +109,11 @@ burgers.forEach(burger => {
   burger.addEventListener('click', handleBurgerClick);
 });
 
+cancelButton.addEventListener('click', (e) => {
+  const allBurgers = document.querySelectorAll(".burger_in_cart");
+  allBurgers.forEach(burger => {
+    burger.remove();
+  });
+  burgersInCart = {};
+  totalPrice.innerText = "0원";
+});
