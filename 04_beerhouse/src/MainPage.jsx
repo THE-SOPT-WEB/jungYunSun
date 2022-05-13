@@ -49,19 +49,51 @@ async function 내근처맥주집가져오기() {
   return result.data.documents;
 }
 
+async function 특정지역맥주집가져오기(location = '혜화') {
+  const result = await axios.get(
+    'https://dapi.kakao.com/v2/local/search/keyword',
+    {
+      headers: {
+        Authorization: `KakaoAK ${process.env.REACT_APP_KAKAO_AK}`,
+      },
+      params: {
+        // eslint-disable-next-line no-useless-concat
+        query: location + ' ' + '맥주',
+      },
+    }
+  );
+  return result.data.documents;
+}
+
 function MainPage() {
   const [nearBeerHouses, setNearBeerHouses] = useState([]);
   const [checkboxIsChecked, setCheckboxIsChecked] = useState(false);
+  const [inputLocation, setInputLocation] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   async function handleButtonClick() {
-    const receivedNearBeerHouse = await 내근처맥주집가져오기();
-    checkboxIsChecked
-      ? setNearBeerHouses(receivedNearBeerHouse)
-      : setNearBeerHouses([]);
+    setIsLoading(true);
+    if (checkboxIsChecked) {
+      const receivedNearBeerHouses = await 내근처맥주집가져오기();
+      setNearBeerHouses(receivedNearBeerHouses);
+    } else {
+      const receivedInputBeerHouses = await 특정지역맥주집가져오기(
+        inputLocation
+      );
+      setNearBeerHouses(receivedInputBeerHouses);
+    }
   }
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, [nearBeerHouses]);
 
   function handleCheckboxChange(e) {
     setCheckboxIsChecked(e.target.checked);
+  }
+
+  function handleInputLocationChange(e) {
+    setInputLocation(e.target.value);
   }
 
   return (
@@ -77,29 +109,36 @@ function MainPage() {
           />
         </AutoSearch>
         <ManualSearch>
-          <SearchingArea>우리 동네는 여기에요</SearchingArea>
-          <InputArea type="text" placeholder="지역을 입력해주세요." />
+          <SearchingLocation>우리 동네는 여기에요</SearchingLocation>
+          <InputLocation
+            type="text"
+            placeholder="지역을 입력해주세요."
+            onChange={handleInputLocationChange}
+            disabled={checkboxIsChecked}
+          />
         </ManualSearch>
         <SearchButton onClick={handleButtonClick}>검색하기</SearchButton>
       </LocationSection>
       <SearchResult>
-        {nearBeerHouses.map((nearBeerHouse) => {
-          return (
-            <BeerHouse
-              beerHouseInfo={nearBeerHouse}
-              key={nearBeerHouse.place_name}
-            />
-          );
-        })}
+        {isLoading && <div>Loading...</div>}
+        {nearBeerHouses.length === 0 ? (
+          <div>맥주집이 없어요!</div>
+        ) : (
+          nearBeerHouses.map((nearBeerHouse) => {
+            return (
+              <BeerHouse beerHouseInfo={nearBeerHouse} key={nearBeerHouse.id} />
+            );
+          })
+        )}
       </SearchResult>
     </MainWrapper>
   );
 }
 
 const MainWrapper = styled.div`
-  background-color: gray;
-  width: 370px; // 임시로 iPhone 12 Pro 기준으로 지정함.
-  height: 824px; // 모바일에서 100vw 쓰는 법?ㅠㅠㅠ
+  background-color: #c6dabf;
+  width: calc(100vw-20px);
+  min-height: 100vh;
   margin: 10px;
   border: 3px solid black;
   border-radius: 20px;
@@ -145,12 +184,12 @@ const ManualSearch = styled.div`
   margin-bottom: 20px;
 `;
 
-const SearchingArea = styled.div`
+const SearchingLocation = styled.div`
   font-weight: bold;
   margin-bottom: 10px;
 `;
 
-const InputArea = styled.input`
+const InputLocation = styled.input`
   display: block;
 `;
 

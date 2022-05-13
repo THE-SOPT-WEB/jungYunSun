@@ -3,7 +3,9 @@ import styled from 'styled-components';
 function BeerHouse({ beerHouseInfo }) {
   return (
     <BeerHouseWrapper>
-      <BeerHouseName>{beerHouseInfo.place_name}</BeerHouseName>
+      <BeerHouseName href={beerHouseInfo.place_url}>
+        {beerHouseInfo.place_name}
+      </BeerHouseName>
       <BeerHouseNumberAndAddress>
         <BeerHouseNumber>{beerHouseInfo.phone}</BeerHouseNumber>
         <BeerHouseAddress>{beerHouseInfo.address_name}</BeerHouseAddress>
@@ -25,7 +27,7 @@ const BeerHouseWrapper = styled.article`
   align-items: flex-start;
 `;
 
-const BeerHouseName = styled.header`
+const BeerHouseName = styled.a`
   font-size: 1.3rem;
   font-weight: bold;
   margin-bottom: 10px;
