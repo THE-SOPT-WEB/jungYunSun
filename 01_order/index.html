@@ -3,11 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=<>, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <script type="module" src="/app.js"></script>
     <div class="container">
       <header>
         <h2>햄식이를 도와줘!</h2>
@@ -122,6 +123,15 @@
           </div>
         </aside>
       </main>
+      <div class="modal hide">
+        <div class="modal__content">
+          <p class="modal__body">정말 주문하시겠어요?</p>
+          <div class="modal__button-container">
+            <a href="./complete.html" class="modal__yes-button">예</a>
+            <button class="modal__no-button">아니오</button>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>
