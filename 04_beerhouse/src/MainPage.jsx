@@ -24,14 +24,8 @@ const getLocation = (errHandler) => {
   return { x: 126.8350976, y: 37.617664 };
 };
 
-async function 위치가져오기() {
-  const result = await getLocation();
-  const { x, y } = result;
-  return { x, y };
-}
-
 async function 내근처맥주집가져오기() {
-  const currentLocation = await 위치가져오기();
+  const currentLocation = await getLocation();
   const result = await axios.get(
     'https://dapi.kakao.com/v2/local/search/keyword',
     {
