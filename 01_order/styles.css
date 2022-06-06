@@ -112,6 +112,12 @@
     cursor: pointer;
   }
   
+  .burger_content {
+    display: flex;
+    flex-direction: column;
+    min-width: 70px;
+  }
+
   .cart_container {
     width: 300px;
     border-radius: 20px;
