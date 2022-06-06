@@ -4,3 +4,4 @@
 |1주차|🍔햄식이를 도와줘🍔|[Link](https://github.com/THE-SOPT-WEB/jungYunSun/pull/1)|
 |2주차-1|who...r....u?|[Link](https://github.com/THE-SOPT-WEB/jungYunSun/pull/4)|
 |2주차-2|강해진 햄식이|[Link](https://github.com/THE-SOPT-WEB/jungYunSun/pull/5)|
+|3주차|my...favorite...|[Link](https://github.com/THE-SOPT-WEB/jungYunSun/pull/6)|
