@@ -5,4 +5,4 @@
 |2주차-1|who...r....u?|[Link](https://github.com/THE-SOPT-WEB/jungYunSun/pull/4)|
 |2주차-2|강해진 햄식이|[Link](https://github.com/THE-SOPT-WEB/jungYunSun/pull/5)|
 |3주차|my...favorite...|[Link](https://github.com/THE-SOPT-WEB/jungYunSun/pull/6)|
-|4주차|너희 맥주집 뭐 돼?|[Link](https://github.com/THE-SOPT-WEB/jungYunSun/pull/7)|
+|4주차|너네 맥주집 뭐 돼?|[Link](https://github.com/THE-SOPT-WEB/jungYunSun/pull/7)|
