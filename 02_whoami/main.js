@@ -32,11 +32,16 @@ const quizList = [
   },
 ];
 
-function initGame({score, answer, image}) {
+function initGame({score, image}) {
+  const modal = $('.modal');
+  showModal('이미지 로딩중...', true);
   currentStep = 0;
   score.innerText = 0;
 
   image.src = quizList[currentStep].src;
+  image.addEventListener('load', () => {
+    modal.classList.add('hide');
+  });
 }
 
 function showModal(modalContent, keepOpen) {
@@ -57,7 +62,10 @@ function goNextStep(score, image) {
   /*
     점수 올리기,
     이미지 바꿔주기
+    이미지 바꾸는 동안 로딩중 띄워주기
   */
+  const modal = $('.modal');
+
   currentStep++;
   score.innerText = Number(score.innerText) + 1;
 
@@ -69,8 +77,11 @@ function goNextStep(score, image) {
     return;
   }
 
-  showModal('역시 날 알아볼 줄 알았어☆');
+  showModal('이미지 로딩중...', true);
   image.src = quizList[currentStep].src;
+  image.addEventListener('load', () => {
+    modal.classList.add('hide');
+  })
 }
 
 function attachEvent({score, answer, image}) {
@@ -101,5 +112,4 @@ window.addEventListener('load', () => {
     image: $('.imageBoard > img')
   });
 })
-
 
