@@ -53,9 +53,17 @@ function showModal(modalContent, keepOpen) {
 
   if (keepOpen) return;
 
+  const hideModal = () => {
+    modal.classList.add('hide');
+    modal.removeEventListener('click', hideModal);
+  }
+
+  modal.addEventListener('click', hideModal);
+
   setTimeout(() => {
     modal.classList.add('hide'); 
-  }, 500);
+  }, 1000);
+
 }
 
 function goNextStep(score, image) {
@@ -94,7 +102,7 @@ function attachEvent({score, answer, image}) {
         goNextStep(score, image);
       } else {
         // 오답
-        showModal(`난 ${currentAnswer}이(가) 아니야!!!`);
+        showModal(`난 ${currentAnswer}이(가) 아니야!!!`, false);
       }
     }
   })
@@ -107,6 +115,7 @@ function gameManager(gameInfo) {
 
 window.addEventListener('load', () => {
   gameManager({
+
     score: $('.scoreBoard__score'),
     answer: $('ul.answer__list'),
     image: $('.imageBoard > img')
