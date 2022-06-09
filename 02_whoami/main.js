@@ -60,9 +60,7 @@ function showModal(modalContent, keepOpen) {
 
   modal.addEventListener('click', hideModal);
 
-  setTimeout(() => {
-    modal.classList.add('hide'); 
-  }, 1000);
+  setTimeout(hideModal, 1000);
 
 }
 
