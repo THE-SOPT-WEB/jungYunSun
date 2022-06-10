@@ -58,6 +58,9 @@ function showModal(modalContent, keepOpen) {
     modal.removeEventListener('click', hideModal);
   }
 
+  modalBody.addEventListener('click', (e) => {
+    e.stopPropagation();
+  })
   modal.addEventListener('click', hideModal);
 
   setTimeout(hideModal, 1000);
