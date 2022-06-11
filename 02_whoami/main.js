@@ -74,9 +74,14 @@ function goNextStep(score, image) {
     이미지 바꾸는 동안 로딩중 띄워주기
   */
   const modal = $('.modal');
+  const scoreBoard = $('.scoreBoard');
 
   currentStep++;
   score.innerText = Number(score.innerText) + 1;
+  if(scoreBoard.classList.contains('scored'))
+    scoreBoard.classList.remove('scored');
+  void scoreBoard.offsetWidth;
+  scoreBoard.classList.add('scored');
 
   if (currentStep === quizList.length) {
     // 게임이 끝난 상태. 
@@ -116,7 +121,6 @@ function gameManager(gameInfo) {
 
 window.addEventListener('load', () => {
   gameManager({
-
     score: $('.scoreBoard__score'),
     answer: $('ul.answer__list'),
     image: $('.imageBoard > img')
