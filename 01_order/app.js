@@ -10,14 +10,14 @@ const yesButton = document.querySelector(".modal__yes-button");
 const noButton = document.querySelector(".modal__no-button");
 const CART_KEY = 'cart';
 
-
 function saveCart() {
   localStorage.setItem(CART_KEY, JSON.stringify(burgersInCart));
 }
 
 function loadCart() {
   const loadedCart = localStorage.getItem(CART_KEY);
-  burgersInCart = JSON.parse(loadedCart);
+  if(loadedCart !== null)
+    burgersInCart = JSON.parse(loadedCart);
 }
 
 function subtractBurgerPrice(burger) {
@@ -76,7 +76,14 @@ function addNewBurgerToCart(burger) {
     if (newCount < 1) {
       handleBurgerDeleteClick(e);
     } else {
+      let oldTotalPrice = totalPrice.innerText.replace(/[^0-9]/g, "");
+      oldTotalPrice = Number(oldTotalPrice);
+      let newTotalPrice = oldTotalPrice - (burgersInCart[burger.name].count * burger.price);
+
       burgersInCart[burger.name].count = newCount;
+      newTotalPrice = newTotalPrice + (burgersInCart[burger.name].count * burger.price);
+
+      totalPrice.innerText = newTotalPrice + "원";
     }
 
     saveCart();
@@ -200,7 +207,3 @@ window.addEventListener('load', () => {
   }
   totalPrice.innerText = oldTotalPrice + "원";
 })
-
-// burgersInCart 안에 있는거 그리기
-// 누적금액 그리기
-// input 작살난거 돌려놓기
