@@ -1,6 +1,7 @@
 const burgers = document.querySelectorAll('article');
 let burgersInCart = {};
 let totalPrice = document.querySelector('.total_price > div');
+const cartContainer = document.querySelector(".cart_container");
 const cart = document.querySelector(".cart_section");
 const orderButton = document.querySelector(".order_button_container > button:first-child");
 const cancelButton = document.querySelector(".order_button_container > button:last-child");
@@ -105,6 +106,12 @@ function addBurgerPrice(burger) {
 }
 
 function handleBurgerClick(e) {
+  if(cartContainer.classList.contains("shake")) {
+    cartContainer.classList.remove("shake");
+    void cartContainer.offsetWidth;
+  }
+  cartContainer.classList.add("shake");
+
   const clickedBurger = e.currentTarget;
   const clickedBurgerName = clickedBurger.querySelector("h2").innerText;
   
