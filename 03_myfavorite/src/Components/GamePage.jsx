@@ -50,9 +50,7 @@ function GamePage() {
   }, [leftCharacters]);
 
   const initGame = () => {
-    setLeftCharacters(gameInfo.sort(() => {
-      return (Math.random() - 0.5);
-    }));
+    setLeftCharacters(gameInfo.sort(() => (Math.random() - 0.5)));
     setWinnersInfo([]);
     setCurrentRound(1);
     setRounds(4);

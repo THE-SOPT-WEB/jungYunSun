@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import Card from './Card';
 import crown from '../img/crown.png';
-import GamePage from './GamePage';
 
 function ResultPage({ initGame, winner }) {
   const handleRestartButtonClick = () => {
