@@ -46,10 +46,21 @@ function GamePage() {
       setCurrentRound(1);
       setRounds((prev) => prev / 2);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [leftCharacters]);
 
+  const initGame = () => {
+    setLeftCharacters(gameInfo.sort(() => {
+      return (Math.random() - 0.5);
+    }));
+    setWinnersInfo([]);
+    setCurrentRound(1);
+    setRounds(4);
+    setWinner({});
+  }
+
   if (rounds === 0.5) {
-    return <ResultPage winner={winner} />;
+    return <ResultPage initGame={initGame} winner={winner} />;
   }
 
   return (

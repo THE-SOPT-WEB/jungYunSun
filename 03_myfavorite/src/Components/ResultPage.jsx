@@ -1,8 +1,13 @@
 import styled from 'styled-components';
 import Card from './Card';
 import crown from '../img/crown.png';
+import GamePage from './GamePage';
 
-function ResultPage({ winner }) {
+function ResultPage({ initGame, winner }) {
+  const handleRestartButtonClick = () => {
+    initGame();
+  }
+
   return (
     <Wrapper>
       <WinnerIs>대망의 우승자는...!</WinnerIs>
@@ -10,7 +15,7 @@ function ResultPage({ winner }) {
         <Card name={winner.name} src={winner.src} />
         <Crown src={crown} />
         <ButtonContainer>
-          <RestartButton>다시하기</RestartButton>
+          <RestartButton onClick={handleRestartButtonClick}>다시하기</RestartButton>
           <ShareButton>공유하기</ShareButton>
         </ButtonContainer>
       </CardWrapper>
@@ -61,6 +66,7 @@ const RestartButton = styled.button`
   background-color: #feb1b7;
   text-shadow: 2px 2px 4px gray;
   color: #fee9e1;
+  cursor: pointer;
 `;
 const ShareButton = styled.button`
   width: 150px;
@@ -72,6 +78,7 @@ const ShareButton = styled.button`
   text-shadow: 2px 2px 4px gray;
   color: white;
   background-color: #a7d676;
+  cursor: pointer;
 `;
 
 export default ResultPage;
