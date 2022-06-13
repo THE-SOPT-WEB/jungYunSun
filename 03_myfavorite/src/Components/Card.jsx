@@ -14,11 +14,20 @@ const CardWrapper = styled.div`
   height: 70vh;
   display: inline-block;
   position: relative;
+  transition: width 0.1s ease-in-out;
+  &:hover{
+    width: 72vh;
+  }
+  overflow: hidden;
 `;
 
 const CardImage = styled.img`
   width: 100%;
   height: 100%;
+  transition: transform 0.1s ease-in-out;
+  &:hover{
+    transform: scale(1.1, 1.1);
+  }
 `;
 
 const CardName = styled.div`
