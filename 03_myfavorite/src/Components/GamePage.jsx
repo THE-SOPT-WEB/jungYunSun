@@ -28,11 +28,11 @@ function GamePage() {
   const [winnersInfo, setWinnersInfo] = useState([]);
   const [currentRound, setCurrentRound] = useState(1);
   const [rounds, setRounds] = useState(4);
-  const [winner, setWinner] = useState({});
+  const [finalWinner, setFinalWinner] = useState({});
 
   function handleCardClick(friend) {
     if (rounds === 1) {
-      setWinner(friend);
+      setFinalWinner(friend);
     }
     setLeftCharacters(leftCharacters.slice(2));
     setWinnersInfo((prev) => [...prev, friend]);
@@ -54,11 +54,11 @@ function GamePage() {
     setWinnersInfo([]);
     setCurrentRound(1);
     setRounds(4);
-    setWinner({});
+    setFinalWinner({});
   }
 
   if (rounds === 0.5) {
-    return <ResultPage initGame={initGame} winner={winner} />;
+    return <ResultPage initGame={initGame} winner={finalWinner} />;
   }
 
   return (
@@ -78,6 +78,7 @@ function GamePage() {
                 onClick={() => {
                   handleCardClick(friend);
                 }}
+
               />
             );
           }

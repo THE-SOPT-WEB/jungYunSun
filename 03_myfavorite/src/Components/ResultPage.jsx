@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Card from './Card';
 import crown from '../img/crown.png';
 
-function ResultPage({ initGame, winner }) {
+function ResultPage({ initGame, finalWinner }) {
   const handleRestartButtonClick = () => {
     initGame();
   }
@@ -11,7 +11,7 @@ function ResultPage({ initGame, winner }) {
     <Wrapper>
       <WinnerIs>대망의 우승자는...!</WinnerIs>
       <CardWrapper>
-        <Card name={winner.name} src={winner.src} />
+        <Card name={finalWinner.name} src={finalWinner.src} />
         <Crown src={crown} />
         <ButtonContainer>
           <RestartButton onClick={handleRestartButtonClick}>다시하기</RestartButton>
