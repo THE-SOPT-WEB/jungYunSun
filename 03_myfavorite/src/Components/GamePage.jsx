@@ -29,14 +29,23 @@ function GamePage() {
   const [currentRound, setCurrentRound] = useState(1);
   const [rounds, setRounds] = useState(4);
   const [finalWinner, setFinalWinner] = useState({});
+  const [roundWinner, setRoundWinner] = useState(null);
+  const [isFinal, setIsFinal] = useState(false);
 
-  function handleCardClick(friend) {
+  const goToNextRound = (friend) => {
     if (rounds === 1) {
       setFinalWinner(friend);
+      setIsFinal(true);
     }
     setLeftCharacters(leftCharacters.slice(2));
     setWinnersInfo((prev) => [...prev, friend]);
     setCurrentRound((prev) => prev + 1);
+    setRoundWinner(null);
+  }
+
+  const handleCardClick = (friend) => {
+    setRoundWinner(friend);
+    setTimeout(() => goToNextRound(friend), 500);
   }
 
   useEffect(() => {
@@ -58,7 +67,7 @@ function GamePage() {
   }
 
   if (rounds === 0.5) {
-    return <ResultPage initGame={initGame} winner={finalWinner} />;
+    return <ResultPage initGame={initGame} finalWinner={finalWinner} isFinal={isFinal} />;
   }
 
   return (
@@ -78,13 +87,13 @@ function GamePage() {
                 onClick={() => {
                   handleCardClick(friend);
                 }}
-
+                roundWinner={roundWinner}
               />
             );
           }
           return null;
         })}
-        <VS src={vs} />
+        <VS src={vs} roundWinner={roundWinner}/>
       </CardWrapper>
     </GameWrapper>
   );
@@ -120,7 +129,7 @@ const CardWrapper = styled.div`
 `;
 
 const VS = styled.img`
-  width: 30vh;
+  width: ${props => props.roundWinner? '0' : '30vh'};
   position: absolute;
   top: 50%;
   left: 50%;
