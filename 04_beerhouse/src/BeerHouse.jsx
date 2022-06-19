@@ -6,10 +6,10 @@ function BeerHouse({ beerHouseInfo }) {
       <BeerHouseName href={beerHouseInfo.place_url}>
         {beerHouseInfo.place_name}
       </BeerHouseName>
-      <BeerHouseNumberAndAddress>
+      <BeerHouseNumberAndOthers>
         <BeerHouseNumber>{beerHouseInfo.phone}</BeerHouseNumber>
-        <BeerHouseAddress>{beerHouseInfo.address_name}</BeerHouseAddress>
-      </BeerHouseNumberAndAddress>
+        <BeerHouseOthers>{beerHouseInfo.address_name}</BeerHouseOthers>
+      </BeerHouseNumberAndOthers>
     </BeerHouseWrapper>
   );
 }
@@ -25,6 +25,7 @@ const BeerHouseWrapper = styled.article`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  box-shadow: 3px 3px 5px gray;
 `;
 
 const BeerHouseName = styled.a`
@@ -33,18 +34,18 @@ const BeerHouseName = styled.a`
   margin-bottom: 10px;
 `;
 
-const BeerHouseNumberAndAddress = styled.main`
+const BeerHouseNumberAndOthers = styled.main`
   display: flex;
   align-items: center;
-  margin-right: 10px;
 `;
 
 const BeerHouseNumber = styled.div`
   border: 2px solid black;
   border-radius: 10px;
   padding: 4px;
+  margin-right: 10px;
 `;
 
-const BeerHouseAddress = styled.div``;
+const BeerHouseOthers = styled.div``;
 
 export default BeerHouse;

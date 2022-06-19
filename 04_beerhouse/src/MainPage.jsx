@@ -136,6 +136,9 @@ const MainWrapper = styled.div`
   margin: 10px;
   border: 3px solid black;
   border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Title = styled.header`
@@ -145,6 +148,7 @@ const Title = styled.header`
 `;
 
 const LocationSection = styled.section`
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
