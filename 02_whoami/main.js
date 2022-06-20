@@ -1,9 +1,3 @@
-import pic1 from "./assets/김규민.jpeg";
-import pic2 from "./assets/전희선.jpeg";
-import pic3 from "./assets/서혜은.jpg";
-import pic4 from "./assets/황주희.jpeg";
-import pic5 from "./assets/백지연.png";
-
 const $ = (selector) => document.querySelector(selector);
 // 매번 querySelector 쓰기 귀찮아서..
 
@@ -11,23 +5,23 @@ let currentStep = 0;
 
 const quizList = [
   {
-    src: pic1,
+    src: "./assets/김규민.jpeg",
     answer: "김규민",
   },
   {
-    src: pic2,
+    src: "./assets/전희선.jpeg",
     answer: "전희선",
   },
   {
-    src: pic3,
+    src: "./assets/서혜은.jpg",
     answer: "서혜은",
   },
   {
-    src: pic4,
+    src: "./assets/황주희.jpeg",
     answer: "황주희",
   },
   {
-    src: pic5,
+    src: "./assets/백지연.png",
     answer: "백지연",
   },
 ];
